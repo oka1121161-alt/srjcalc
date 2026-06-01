@@ -1,943 +1,826 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Калькулятор растаможки РБ</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRJ MOTORS - Авто из Китая</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* Фирменные цвета */
+            --bg-dark: #070707;
+            --bg-panel: #111111;
+            --bg-input: #1a1a1a;
+            --neon-green: #bfff00; 
+            --text-light: #f5f5f5;
+            --text-muted: #8d8d8d;
+            --border-light: rgba(255, 255, 255, 0.07);
+        }
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
 
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        /* --- СТИЛИ ШАПКИ И МЕНЮ --- */
+        .top-bar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 50px; background-color: var(--bg-panel);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05); letter-spacing: 0.5px;
+        }
+        .top-info {
+            display: flex; align-items: center; gap: 15px; color: var(--text-muted);
+            flex: 1; justify-content: flex-start; font-size: 11px; font-weight: 600;
+        }
+        .top-info i { color: var(--neon-green); margin-right: 5px; }
+        .top-info .divider { color: #333; }
+        .brand-text {
+            flex: 1; text-align: center; font-size: 18px; font-weight: 800;
+            letter-spacing: 1.5px; color: var(--text-light); text-transform: uppercase;
+        }
+        .brand-text .highlight { color: var(--neon-green); text-shadow: 0 0 10px rgba(191, 255, 0, 0.4); }
+        .top-contact { display: flex; align-items: center; gap: 20px; flex: 1; justify-content: flex-end; }
+        .phone-link {
+            color: var(--text-light); text-decoration: none; font-size: 14px;
+            font-weight: 800; letter-spacing: 1px; transition: all 0.3s ease;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .phone-link i { color: var(--neon-green); }
+        .phone-link:hover { color: var(--neon-green); text-shadow: 0 0 10px rgba(191, 255, 0, 0.4); }
+        .socials { display: flex; gap: 10px; }
+        .socials a {
+            display: flex; justify-content: center; align-items: center;
+            width: 30px; height: 30px; font-size: 14px; background-color: transparent;
+            color: var(--neon-green); text-decoration: none; border-radius: 50%;
+            border: 1px solid rgba(191, 255, 0, 0.3); transition: all 0.3s ease;
+        }
+        .socials a:hover {
+            background-color: var(--neon-green); color: var(--bg-dark);
+            box-shadow: 0 0 15px rgba(191, 255, 0, 0.6); transform: scale(1.1);
+        }
 
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-    }
+        .main-nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 50px; background-color: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(191, 255, 0, 0.15); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: sticky; top: 0; z-index: 1000;
+        }
+        .nav-links { display: flex; gap: 40px; align-items: center; flex: 1; }
+        .left-links { justify-content: flex-end; padding-right: 50px; }
+        .right-links { justify-content: flex-start; padding-left: 50px; }
+        .nav-links a {
+            color: var(--text-light); text-decoration: none; font-size: 14px;
+            font-weight: 600; text-transform: uppercase; letter-spacing: 1.2px;
+            position: relative; padding: 8px 0; transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; width: 100%; height: 2px;
+            bottom: 0; left: 0; background-color: var(--neon-green);
+            box-shadow: 0 0 10px var(--neon-green); transform: scaleX(0); 
+            transform-origin: center; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .nav-links a:hover { color: var(--neon-green); text-shadow: 0 0 8px rgba(191, 255, 0, 0.4); }
+        .nav-links a:hover::after { transform: scaleX(1); }
+        .nav-logo { flex: 0 0 auto; display: flex; justify-content: center; }
+        .nav-logo img {
+            width: 85px; height: 85px; border-radius: 22px; object-fit: cover;
+            border: 2px solid rgba(191, 255, 0, 0.4); box-shadow: 0 0 20px rgba(191, 255, 0, 0.3);
+            transition: all 0.4s ease; cursor: pointer; position: relative; z-index: 2;
+        }
+        .nav-logo img:hover { transform: scale(1.08) translateY(-2px); box-shadow: 0 10px 30px rgba(191, 255, 0, 0.7); border-color: var(--neon-green); }
 
-    :root{
-      --bg:#070707;
-      --card:#101010;
-      --input:#171717;
-      --border:rgba(255,255,255,0.07);
-      --border-hover:rgba(255,255,255,0.14);
-      --text:#ffffff;
-      --muted:#8d8d8d;
-      --accent:#2d6cff;
-    }
+        .hero {
+            position: relative; height: 85vh; min-height: 600px;
+            background: url('srjhero.png') center/cover no-repeat;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+        }
+        .hero::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(7,7,7,1) 100%); z-index: 1;
+        }
+        .hero-content { position: relative; z-index: 2; max-width: 900px; padding: 0 20px; }
+        .hero h1 {
+            font-size: 4.5rem; font-weight: 900; text-transform: uppercase;
+            letter-spacing: 2px; line-height: 1.1; margin-bottom: 40px;
+            color: var(--text-light); text-shadow: 0px 5px 25px rgba(0, 0, 0, 0.8);
+        }
+        .hero h1 span { color: var(--neon-green); text-shadow: 0 0 20px rgba(191, 255, 0, 0.5); }
+        .btn-primary {
+            display: inline-block; padding: 18px 50px; font-size: 16px; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 1.5px; color: var(--bg-dark);
+            background-color: var(--neon-green); border: none; border-radius: 50px;
+            text-decoration: none; cursor: pointer; transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(191, 255, 0, 0.4), inset 0 0 10px rgba(255,255,255,0.4);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.05); box-shadow: 0 10px 30px rgba(191, 255, 0, 0.8), inset 0 0 15px rgba(255,255,255,0.6); background-color: #ccff33;
+        }
 
-    body{
-      min-height:100vh;
-      background:
-        radial-gradient(circle at top,#1a1a1a 0%,#070707 55%);
-      font-family:'Inter',sans-serif;
-      color:var(--text);
-      padding:40px 20px;
-    }
+        /* --- СЕКЦИЯ КАТАЛОГА --- */
+        .catalog-section { padding: 80px 0 60px; background-color: var(--bg-dark); width: 100%; }
+        .section-title {
+            text-align: center; font-size: 2.5rem; font-weight: 900; text-transform: uppercase;
+            letter-spacing: 2px; margin-bottom: 50px; position: relative;
+        }
+        .section-title::after {
+            content: ''; display: block; width: 80px; height: 4px; background-color: var(--neon-green);
+            margin: 15px auto 0; box-shadow: 0 0 15px var(--neon-green); border-radius: 2px;
+        }
+        .catalog-slider {
+            display: flex; gap: 30px; padding: 20px 50px 40px; overflow-x: auto;
+            scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: var(--neon-green) var(--bg-panel);
+        }
+        .catalog-slider::-webkit-scrollbar { height: 8px; }
+        .catalog-slider::-webkit-scrollbar-track { background: var(--bg-panel); border-radius: 10px; margin: 0 50px; }
+        .catalog-slider::-webkit-scrollbar-thumb { background-color: var(--neon-green); border-radius: 10px; box-shadow: 0 0 10px var(--neon-green); }
+        .car-card {
+            flex: 0 0 calc(25% - 22.5px); min-width: 280px; background: linear-gradient(145deg, #161616 0%, #0a0a0a 100%);
+            border: 1px solid #222; border-radius: 20px; padding: 30px 20px; text-align: center;
+            scroll-snap-align: start; transition: all 0.4s ease; position: relative; cursor: pointer; overflow: hidden;
+        }
+        .car-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% -20%, rgba(191, 255, 0, 0.1), transparent 70%); opacity: 0; transition: opacity 0.4s ease;
+        }
+        .car-card:hover { transform: translateY(-10px); border-color: rgba(191, 255, 0, 0.5); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(191, 255, 0, 0.15); }
+        .car-card:hover::before { opacity: 1; }
+        .car-img-wrapper { height: 180px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; position: relative; z-index: 2; }
+        .car-img { max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 15px 15px rgba(0,0,0,0.6)); transition: transform 0.5s ease; }
+        .car-card:hover .car-img { transform: scale(1.08); }
+        .car-title { font-size: 1.4rem; font-weight: 800; margin-bottom: 15px; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; position: relative; z-index: 2; }
+        .car-specs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 25px; position: relative; z-index: 2; }
+        .spec-item { background-color: rgba(255, 255, 255, 0.03); border-radius: 8px; padding: 10px; border: 1px solid rgba(255,255,255,0.05); }
+        .spec-label { display: block; font-size: 10px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 5px; }
+        .spec-value { font-size: 13px; font-weight: 700; color: var(--neon-green); }
+        .btn-outline {
+            display: inline-block; padding: 10px 25px; font-size: 12px; font-weight: 700; text-transform: uppercase;
+            color: var(--text-light); background: transparent; border: 1px solid var(--neon-green); border-radius: 30px; transition: all 0.3s ease; position: relative; z-index: 2;
+        }
+        .car-card:hover .btn-outline { background-color: var(--neon-green); color: var(--bg-dark); box-shadow: 0 0 15px rgba(191, 255, 0, 0.4); }
 
-    .wrapper{
-      max-width:1280px;
-      margin:0 auto;
-      display:grid;
-      grid-template-columns:1fr 420px;
-      gap:24px;
-      align-items:start;
-    }
+        /* --- СЕКЦИЯ КАЛЬКУЛЯТОРА --- */
+        .calculator-section {
+            padding: 60px 20px 100px;
+            background-image: radial-gradient(circle at 50% 100%, #1a2210 0%, #070707 50%);
+        }
+        
+        .calc-wrapper {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 30px;
+            align-items: start;
+        }
 
-    .calculator,
-    .result-card{
-      background:rgba(16,16,16,0.96);
-      border:1px solid var(--border);
-      border-radius:30px;
-      backdrop-filter:blur(18px);
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,0.02),
-        0 25px 80px rgba(0,0,0,0.55);
-    }
+        .calculator-form, .result-card {
+            background: rgba(16, 16, 16, 0.85);
+            border: 1px solid rgba(191, 255, 0, 0.15);
+            border-radius: 30px;
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(191, 255, 0, 0.02);
+            padding: 40px;
+        }
 
-    .calculator{
-      padding:34px;
-    }
+        .result-card {
+            position: sticky;
+            top: 120px;
+        }
 
-    .result-card{
-      padding:30px;
-      position:sticky;
-      top:30px;
-    }
+        .calc-subtitle {
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 35px;
+            text-align: center;
+        }
 
-    .title{
-      font-size:34px;
-      font-weight:800;
-      letter-spacing:-1.5px;
-      margin-bottom:8px;
-    }
+        .calc-field {
+            margin-bottom: 25px;
+        }
 
-    .subtitle{
-      color:var(--muted);
-      font-size:14px;
-      line-height:1.5;
-      margin-bottom:34px;
-    }
+        .calc-label {
+            display: block;
+            margin-bottom: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-    .field{
-      margin-bottom:24px;
-    }
+        .calc-input-wrap {
+            position: relative;
+        }
 
-    .label{
-      display:block;
-      margin-bottom:12px;
-      font-size:14px;
-      font-weight:600;
-      color:#c2c2c2;
-    }
+        .calc-input {
+            width: 100%;
+            height: 60px;
+            background: var(--bg-input);
+            border: 1px solid var(--border-light);
+            border-radius: 15px;
+            padding: 0 20px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            outline: none;
+            transition: all 0.3s ease;
+        }
 
-    .input-wrap{
-      position:relative;
-    }
+        .calc-input::-webkit-inner-spin-button,
+        .calc-input::-webkit-outer-spin-button {
+            -webkit-appearance: none; margin: 0;
+        }
 
-    input[type="number"]{
-      width:100%;
-      height:60px;
-      background:var(--input);
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:0 18px;
-      color:#fff;
-      font-size:16px;
-      font-weight:500;
-      font-family:'Inter',sans-serif;
-      outline:none;
-      appearance:textfield;
-      -moz-appearance:textfield;
-      transition:0.25s ease;
-    }
+        .calc-input:focus {
+            border-color: var(--neon-green);
+            box-shadow: 0 0 15px rgba(191, 255, 0, 0.2);
+        }
 
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button{
-      -webkit-appearance:none;
-      margin:0;
-    }
+        .calc-input::placeholder { color: #5f5f5f; font-weight: 500; }
 
-    input[type="number"]:focus{
-      border-color:var(--accent);
-      box-shadow:0 0 0 4px rgba(45,108,255,0.12);
-    }
+        .calc-currency {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--neon-green);
+            font-weight: 800;
+            font-size: 18px;
+            pointer-events: none;
+        }
 
-    input[type="number"]::placeholder{
-      color:#5f5f5f;
-    }
+        .calc-select-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
 
-    .currency{
-      position:absolute;
-      right:18px;
-      top:50%;
-      transform:translateY(-50%);
-      color:#7d7d7d;
-      font-weight:700;
-      pointer-events:none;
-    }
+        .calc-option input { display: none; }
 
-    .select-grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:10px;
-    }
+        .calc-option label {
+            height: 100%;
+            min-height: 60px;
+            background: var(--bg-input);
+            border: 1px solid var(--border-light);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
 
-    .option input{
-      display:none;
-    }
+        .calc-option label:hover {
+            border-color: rgba(191, 255, 0, 0.5);
+            color: #fff;
+        }
 
-    .option label{
-      min-height:58px;
-      background:var(--input);
-      border:1px solid var(--border);
-      border-radius:18px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      padding:14px;
-      cursor:pointer;
-      transition:0.25s ease;
-      color:#9d9d9d;
-      font-size:14px;
-      line-height:1.25;
-      font-weight:600;
-    }
+        .calc-option input:checked + label {
+            background: var(--neon-green);
+            border-color: var(--neon-green);
+            color: var(--bg-dark);
+            box-shadow: 0 0 20px rgba(191, 255, 0, 0.3);
+        }
 
-    .option label:hover{
-      border-color:var(--border-hover);
-      color:#fff;
-    }
+        .calc-checkbox-block {
+            display: none;
+            margin-bottom: 25px;
+        }
 
-    .option input:checked + label{
-      background:var(--accent);
-      border-color:var(--accent);
-      color:#fff;
-      box-shadow:0 12px 28px rgba(45,108,255,0.25);
-    }
+        .calc-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: var(--bg-input);
+            border: 1px solid var(--border-light);
+            border-radius: 15px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .calc-checkbox:hover { border-color: rgba(191, 255, 0, 0.5); }
 
-    .checkbox-block{
-      display:none;
-      margin-bottom:24px;
-    }
+        .calc-checkbox input { display: none; }
 
-    .checkbox{
-      display:flex;
-      align-items:center;
-      gap:14px;
-      background:var(--input);
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:18px;
-      cursor:pointer;
-    }
+        .calc-checkmark {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: #111;
+            position: relative;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
 
-    .checkbox input{
-      display:none;
-    }
+        .calc-checkmark::after {
+            content: ''; position: absolute; width: 6px; height: 12px;
+            border-right: 3px solid var(--bg-dark); border-bottom: 3px solid var(--bg-dark);
+            transform: rotate(45deg); left: 7px; top: 2px; opacity: 0; transition: opacity 0.2s ease;
+        }
 
-    .checkmark{
-      width:22px;
-      height:22px;
-      border-radius:7px;
-      border:1px solid rgba(255,255,255,0.18);
-      background:#111;
-      position:relative;
-      flex-shrink:0;
-    }
+        .calc-checkbox input:checked + .calc-checkmark {
+            background: var(--neon-green);
+            border-color: var(--neon-green);
+            box-shadow: 0 0 10px rgba(191, 255, 0, 0.5);
+        }
 
-    .checkmark::after{
-      content:'';
-      position:absolute;
-      width:6px;
-      height:11px;
-      border-right:2px solid #fff;
-      border-bottom:2px solid #fff;
-      transform:rotate(45deg);
-      left:7px;
-      top:3px;
-      opacity:0;
-    }
+        .calc-checkbox input:checked + .calc-checkmark::after { opacity: 1; }
 
-    .checkbox input:checked + .checkmark{
-      background:var(--accent);
-      border-color:var(--accent);
-    }
+        .calc-checkbox-text { font-size: 14px; font-weight: 700; color: #e8e8e8; }
+        .hidden { display: none; }
 
-    .checkbox input:checked + .checkmark::after{
-      opacity:1;
-    }
+        /* Итоги калькулятора */
+        .res-title {
+            font-size: 24px; font-weight: 900; margin-bottom: 30px;
+            text-transform: uppercase; text-align: center; letter-spacing: 1px;
+            color: var(--text-light);
+        }
 
-    .checkbox-text{
-      font-size:15px;
-      font-weight:600;
-      color:#e8e8e8;
-    }
+        .res-list { display: flex; flex-direction: column; gap: 15px; }
 
-    .hidden{
-      display:none;
-    }
+        .res-item {
+            display: flex; align-items: center; justify-content: space-between; gap: 15px;
+            background: var(--bg-input); border: 1px solid var(--border-light);
+            border-radius: 15px; padding: 20px; transition: all 0.3s ease;
+        }
+        
+        .res-item:hover { border-color: rgba(191, 255, 0, 0.2); }
 
-    .result-title{
-      font-size:26px;
-      font-weight:800;
-      margin-bottom:24px;
-    }
+        .res-name { color: var(--text-muted); font-size: 13px; font-weight: 600; text-transform: uppercase; }
+        .res-value { font-size: 16px; font-weight: 800; text-align: right; color: var(--text-light); }
 
-    .result-list{
-      display:flex;
-      flex-direction:column;
-      gap:14px;
-    }
+        .res-total { margin-top: 25px; }
+        .res-total .res-item {
+            background: linear-gradient(135deg, rgba(191,255,0,0.1) 0%, rgba(10,10,10,1) 100%);
+            border-color: var(--neon-green);
+            box-shadow: 0 0 20px rgba(191, 255, 0, 0.1);
+        }
+        .res-total .res-name { color: var(--text-light); }
+        .res-total .res-value {
+            font-size: 24px; color: var(--neon-green);
+            text-shadow: 0 0 15px rgba(191, 255, 0, 0.4);
+        }
 
-    .result-item{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:18px;
-      background:#171717;
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:18px;
-    }
+        .res-rate {
+            margin-top: 20px; text-align: center; color: var(--text-muted);
+            font-size: 12px; font-weight: 600;
+        }
 
-    .result-name{
-      color:#b8b8b8;
-      font-size:14px;
-      line-height:1.4;
-    }
+        /* --- МОДАЛЬНОЕ ОКНО --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px); z-index: 9999;
+            display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.4s ease;
+        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-content {
+            background: var(--bg-panel); width: 90%; max-width: 800px; border-radius: 20px;
+            border: 1px solid rgba(191, 255, 0, 0.3); box-shadow: 0 0 40px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(191, 255, 0, 0.05);
+            padding: 40px; position: relative; transform: translateY(30px) scale(0.95); transition: all 0.4s ease; display: flex; gap: 30px;
+        }
+        .modal-overlay.active .modal-content { transform: translateY(0) scale(1); }
+        .modal-close { position: absolute; top: 20px; right: 25px; font-size: 28px; color: var(--text-muted); cursor: pointer; transition: color 0.3s ease; }
+        .modal-close:hover { color: var(--neon-green); }
+        .modal-img-col { flex: 1; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle, rgba(191,255,0,0.1) 0%, transparent 70%); }
+        .modal-img-col img { width: 100%; filter: drop-shadow(0 20px 20px rgba(0,0,0,0.8)); }
+        .modal-info-col { flex: 1; }
+        .modal-title { font-size: 2rem; font-weight: 900; color: var(--text-light); margin-bottom: 15px; text-transform: uppercase; }
+        .modal-desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 25px; font-weight: 500;}
+        .modal-specs { margin-bottom: 30px; }
+        .modal-specs .spec-item {
+            display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-radius: 0; background: transparent; border-left: none; border-right: none; border-top: none;
+        }
 
-    .result-value{
-      font-size:16px;
-      font-weight:700;
-      text-align:right;
-    }
+        /* --- АДАПТИВНОСТЬ --- */
+        @media (max-width: 1200px) {
+            .top-bar { flex-direction: column; gap: 15px; padding: 15px; }
+            .brand-text { order: -1; margin-bottom: 10px; flex: auto; }
+            .top-info, .top-contact { flex: auto; justify-content: center; flex-direction: column; gap: 8px; }
+            .top-contact { flex-direction: row; }
+            .top-info .divider { display: none; }
+            .main-nav { flex-direction: column; gap: 20px; padding: 20px; }
+            .nav-links { gap: 20px; flex-wrap: wrap; justify-content: center; flex: auto; }
+            .left-links, .right-links { padding: 0; }
+            .nav-logo { order: -1; margin-bottom: 10px; }
+            .hero h1 { font-size: 2.5rem; }
+            .car-card { flex: 0 0 calc(50% - 15px); }
+            .modal-content { flex-direction: column; padding: 30px 20px; }
+            .modal-img-col { height: 200px; margin-bottom: 20px; }
+            .calc-wrapper { grid-template-columns: 1fr; }
+            .result-card { position: relative; top: 0; }
+        }
 
-    .total{
-      margin-top:20px;
-      padding-top:20px;
-      border-top:1px solid rgba(255,255,255,0.07);
-    }
-
-    .total .result-item{
-      background:#1a1a1a;
-      border-color:rgba(45,108,255,0.24);
-    }
-
-    .total .result-value{
-      font-size:22px;
-      line-height:1.5;
-    }
-
-    .rate{
-      margin-top:18px;
-      color:#8d8d8d;
-      font-size:13px;
-    }
-
-    @media(max-width:1050px){
-
-      .wrapper{
-        grid-template-columns:1fr;
-      }
-
-      .result-card{
-        position:relative;
-        top:0;
-      }
-    }
-
-    @media(max-width:640px){
-
-      .calculator,
-      .result-card{
-        padding:24px;
-        border-radius:24px;
-      }
-
-      .title{
-        font-size:28px;
-      }
-
-      .select-grid{
-        grid-template-columns:1fr;
-      }
-    }
-
-  </style>
-
+        @media (max-width: 768px) {
+            .car-card { flex: 0 0 85%; }
+            .calculator-form, .result-card { padding: 25px; }
+            .calc-select-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
 
-  <div class="wrapper">
-
-    <div class="calculator">
-
-      <h1 class="title">
-        Растаможка РБ
-      </h1>
-
-      <p class="subtitle">
-        Калькулятор расчета таможенных платежей
-      </p>
-
-      <!-- Стоимость -->
-
-      <div class="field">
-
-        <label class="label">
-          Стоимость авто
-        </label>
-
-        <div class="input-wrap">
-
-          <input
-            type="number"
-            id="carPrice"
-            placeholder="Введите стоимость"
-          >
-
-          <span class="currency">
-            €
-          </span>
-
+    <div class="top-bar">
+        <div class="top-info">
+            <span><i class="far fa-clock"></i> ПН - ВС 9-18, БЕЗ ВЫХОДНЫХ</span>
+            <span class="divider">|</span>
+            <span><i class="fas fa-map-marker-alt"></i> г. Минск, ул. Жореса Алферова 14</span>
         </div>
-
-      </div>
-
-      <!-- Возраст -->
-
-      <div class="field">
-
-        <label class="label">
-          Возраст авто
-        </label>
-
-        <div class="select-grid">
-
-          <div class="option">
-
-            <input
-              type="radio"
-              name="age"
-              id="newCar"
-              value="new"
-              checked
-            >
-
-            <label for="newCar">
-              Новый / до 3 лет
-            </label>
-
-          </div>
-
-          <div class="option">
-
-            <input
-              type="radio"
-              name="age"
-              id="middleCar"
-              value="middle"
-            >
-
-            <label for="middleCar">
-              3–5 лет
-            </label>
-
-          </div>
-
-          <div class="option">
-
-            <input
-              type="radio"
-              name="age"
-              id="oldCar"
-              value="old"
-            >
-
-            <label for="oldCar">
-              Старше 5 лет
-            </label>
-
-          </div>
-
+        <div class="brand-text">
+            SRJ MOTORS - <span class="highlight">АВТО ИЗ КИТАЯ</span> С ГАРАНТИЕЙ
         </div>
-
-      </div>
-
-      <!-- Тип двигателя -->
-
-      <div class="field">
-
-        <label class="label">
-          Тип двигателя
-        </label>
-
-        <div class="select-grid">
-
-          <div class="option">
-
-            <input
-              type="radio"
-              name="engineType"
-              id="ice"
-              value="ice"
-              checked
-            >
-
-            <label for="ice">
-              ДВС
-            </label>
-
-          </div>
-
-          <div class="option">
-
-            <input
-              type="radio"
-              name="engineType"
-              id="electric"
-              value="electric"
-            >
-
-            <label for="electric">
-              Электро
-            </label>
-
-          </div>
-
-          <div class="option">
-
-            <input
-              type="radio"
-              name="engineType"
-              id="hybrid"
-              value="hybrid"
-            >
-
-            <label for="hybrid">
-              Последовательный гибрид
-            </label>
-
-          </div>
-
+        <div class="top-contact">
+            <a href="tel:+375336726666" class="phone-link"><i class="fas fa-phone-alt"></i> +375 33 672-66-66</a>
+            <div class="socials">
+                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+            </div>
         </div>
-
-      </div>
-
-      <!-- Льгота -->
-
-      <div
-        class="checkbox-block"
-        id="benefitBlock"
-      >
-
-        <label class="checkbox">
-
-          <input
-            type="checkbox"
-            id="benefitCheckbox"
-          >
-
-          <span class="checkmark"></span>
-
-          <span class="checkbox-text">
-            Таможенная льгота 50% (Указ №140)
-          </span>
-
-        </label>
-
-      </div>
-
-      <!-- Объем двигателя -->
-
-      <div
-        class="field hidden"
-        id="engineVolumeField"
-      >
-
-        <label class="label">
-          Объем двигателя (см³)
-        </label>
-
-        <div class="input-wrap">
-
-          <input
-            type="number"
-            id="engineVolume"
-            placeholder="Введите объем двигателя"
-          >
-
-        </div>
-
-      </div>
-
     </div>
 
-    <!-- RESULT -->
-
-    <div class="result-card">
-
-      <h2 class="result-title">
-        Результат
-      </h2>
-
-      <div class="result-list">
-
-        <div class="result-item">
-
-          <span class="result-name">
-            Таможенная пошлина
-          </span>
-
-          <span
-            class="result-value"
-            id="dutyValue"
-          >
-            0 €
-          </span>
-
+    <nav class="main-nav">
+        <div class="nav-links left-links">
+            <a href="#">Главная</a> <a href="#catalog">Каталог</a> <a href="#calculator">Калькулятор растаможки</a>
         </div>
-
-        <div class="result-item">
-
-          <span class="result-name">
-            Таможенный сбор
-          </span>
-
-          <span class="result-value">
-            120 BYN
-          </span>
-
+        <div class="nav-logo">
+            <a href="#"><img src="srjlo-2.png" alt="SRJ Motors Logo"></a>
         </div>
-
-        <div class="result-item">
-
-          <span class="result-name">
-            Утилизационный сбор
-          </span>
-
-          <span
-            class="result-value"
-            id="utilValue"
-          >
-            625 BYN
-          </span>
-
+        <div class="nav-links right-links">
+            <a href="#">О нас</a> <a href="#">Отзывы</a> <a href="#">Контакты</a>
         </div>
+    </nav>
 
-        <div class="result-item">
-
-          <span class="result-name">
-            НДС
-          </span>
-
-          <span
-            class="result-value"
-            id="ndsValue"
-          >
-            0 €
-          </span>
-
+    <section class="hero">
+        <div class="hero-content">
+            <h1><span>Китайские авто</span><br>в наличии и под заказ</h1>
+            <a href="#catalog" class="btn-primary">Выбрать авто</a>
         </div>
+    </section>
 
-        <div class="result-item">
-
-          <span class="result-name">
-            Расходы на СВХ
-          </span>
-
-          <span class="result-value">
-            700 BYN
-          </span>
-
+    <section class="catalog-section" id="catalog">
+        <h2 class="section-title">Популярные Электромобили</h2>
+        <div class="catalog-slider">
+            <div class="car-card" onclick="openModal('sealion06')">
+                <div class="car-img-wrapper"><img src="sealion06.png" alt="BYD Sea Lion 06" class="car-img"></div>
+                <h3 class="car-title">BYD Sea Lion 06</h3>
+                <div class="car-specs">
+                    <div class="spec-item"><span class="spec-label">Батарея</span><span class="spec-value">71.8 кВт⋅ч</span></div>
+                    <div class="spec-item"><span class="spec-label">Запас хода</span><span class="spec-value">510 км</span></div>
+                    <div class="spec-item"><span class="spec-label">Мощность</span><span class="spec-value">218 л.с.</span></div>
+                    <div class="spec-item"><span class="spec-label">Привод</span><span class="spec-value">Передний</span></div>
+                </div>
+                <div class="btn-outline">Подробнее</div>
+            </div>
+            <div class="car-card" onclick="openModal('sealion07')">
+                <div class="car-img-wrapper"><img src="sealion07.png" alt="BYD Sea Lion 07" class="car-img"></div>
+                <h3 class="car-title">BYD Sea Lion 07</h3>
+                <div class="car-specs">
+                    <div class="spec-item"><span class="spec-label">Батарея</span><span class="spec-value">80.6 кВт⋅ч</span></div>
+                    <div class="spec-item"><span class="spec-label">Запас хода</span><span class="spec-value">610 км</span></div>
+                    <div class="spec-item"><span class="spec-label">Мощность</span><span class="spec-value">313 л.с.</span></div>
+                    <div class="spec-item"><span class="spec-label">Привод</span><span class="spec-value">Задний</span></div>
+                </div>
+                <div class="btn-outline">Подробнее</div>
+            </div>
+            <div class="car-card" onclick="openModal('q05')">
+                <div class="car-img-wrapper"><img src="changan_q05.png" alt="Changan Q05" class="car-img"></div>
+                <h3 class="car-title">Changan Q05</h3>
+                <div class="car-specs">
+                    <div class="spec-item"><span class="spec-label">Батарея</span><span class="spec-value">60 кВт⋅ч</span></div>
+                    <div class="spec-item"><span class="spec-label">Запас хода</span><span class="spec-value">450 км</span></div>
+                    <div class="spec-item"><span class="spec-label">Мощность</span><span class="spec-value">215 л.с.</span></div>
+                    <div class="spec-item"><span class="spec-label">Привод</span><span class="spec-value">Передний</span></div>
+                </div>
+                <div class="btn-outline">Подробнее</div>
+            </div>
+            <div class="car-card" onclick="openModal('a06')">
+                <div class="car-img-wrapper"><img src="changan_a06.png" alt="Changan A06" class="car-img"></div>
+                <h3 class="car-title">Changan A06</h3>
+                <div class="car-specs">
+                    <div class="spec-item"><span class="spec-label">Батарея</span><span class="spec-value">55 кВт⋅ч</span></div>
+                    <div class="spec-item"><span class="spec-label">Запас хода</span><span class="spec-value">505 км</span></div>
+                    <div class="spec-item"><span class="spec-label">Мощность</span><span class="spec-value">258 л.с.</span></div>
+                    <div class="spec-item"><span class="spec-label">Привод</span><span class="spec-value">Передний</span></div>
+                </div>
+                <div class="btn-outline">Подробнее</div>
+            </div>
         </div>
+    </section>
 
-      </div>
+    <section class="calculator-section" id="calculator">
+        <h2 class="section-title">Калькулятор растаможки</h2>
+        <p class="calc-subtitle">Точный расчет таможенных платежей с учетом актуального курса НБРБ</p>
+        
+        <div class="calc-wrapper">
+            <div class="calculator-form">
+                
+                <div class="calc-field">
+                    <label class="calc-label">Стоимость авто</label>
+                    <div class="calc-input-wrap">
+                        <input type="number" id="carPrice" class="calc-input" placeholder="Введите стоимость">
+                        <span class="calc-currency">€</span>
+                    </div>
+                </div>
 
-      <div class="total">
+                <div class="calc-field">
+                    <label class="calc-label">Возраст авто</label>
+                    <div class="calc-select-grid">
+                        <div class="calc-option">
+                            <input type="radio" name="age" id="newCar" value="new" checked>
+                            <label for="newCar">Новый / до 3 лет</label>
+                        </div>
+                        <div class="calc-option">
+                            <input type="radio" name="age" id="middleCar" value="middle">
+                            <label for="middleCar">3–5 лет</label>
+                        </div>
+                        <div class="calc-option">
+                            <input type="radio" name="age" id="oldCar" value="old">
+                            <label for="oldCar">Старше 5 лет</label>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="result-item">
+                <div class="calc-field">
+                    <label class="calc-label">Тип двигателя</label>
+                    <div class="calc-select-grid">
+                        <div class="calc-option">
+                            <input type="radio" name="engineType" id="ice" value="ice" checked>
+                            <label for="ice">ДВС</label>
+                        </div>
+                        <div class="calc-option">
+                            <input type="radio" name="engineType" id="electric" value="electric">
+                            <label for="electric">Электро</label>
+                        </div>
+                        <div class="calc-option">
+                            <input type="radio" name="engineType" id="hybrid" value="hybrid">
+                            <label for="hybrid">Последовательный гибрид</label>
+                        </div>
+                    </div>
+                </div>
 
-          <span class="result-name">
-            Итого
-          </span>
+                <div class="calc-checkbox-block" id="benefitBlock">
+                    <label class="calc-checkbox">
+                        <input type="checkbox" id="benefitCheckbox">
+                        <span class="calc-checkmark"></span>
+                        <span class="calc-checkbox-text">Таможенная льгота 50% (Указ №140)</span>
+                    </label>
+                </div>
 
-          <span
-            class="result-value"
-            id="totalValue"
-          >
-            0 BYN
-          </span>
+                <div class="calc-field hidden" id="engineVolumeField">
+                    <label class="calc-label">Объем двигателя (см³)</label>
+                    <div class="calc-input-wrap">
+                        <input type="number" id="engineVolume" class="calc-input" placeholder="Например: 2000">
+                    </div>
+                </div>
 
+            </div>
+
+            <div class="result-card">
+                <h2 class="res-title">Результат</h2>
+                
+                <div class="res-list">
+                    <div class="res-item">
+                        <span class="res-name">Таможенная пошлина</span>
+                        <span class="res-value" id="dutyValue">0 €</span>
+                    </div>
+                    <div class="res-item">
+                        <span class="res-name">Таможенный сбор</span>
+                        <span class="res-value">120 BYN</span>
+                    </div>
+                    <div class="res-item">
+                        <span class="res-name">Утилизационный сбор</span>
+                        <span class="res-value" id="utilValue">625 BYN</span>
+                    </div>
+                    <div class="res-item">
+                        <span class="res-name">НДС</span>
+                        <span class="res-value" id="ndsValue">0 €</span>
+                    </div>
+                    <div class="res-item">
+                        <span class="res-name">Расходы на СВХ</span>
+                        <span class="res-value">700 BYN</span>
+                    </div>
+                </div>
+
+                <div class="res-total">
+                    <div class="res-item">
+                        <span class="res-name">Итого</span>
+                        <span class="res-value" id="totalValue">0 BYN</span>
+                    </div>
+                </div>
+
+                <div class="res-rate" id="rateInfo">
+                    Загрузка курса НБРБ...
+                </div>
+            </div>
         </div>
+    </section>
 
-      </div>
-
-      <div
-        class="rate"
-        id="rateInfo"
-      >
-        Загрузка курса НБРБ...
-      </div>
-
+    <div class="modal-overlay" id="carModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <div class="modal-img-col"><img src="" alt="Car Image" id="modalImg"></div>
+            <div class="modal-info-col">
+                <h3 class="modal-title" id="modalTitle">Название авто</h3>
+                <p class="modal-desc" id="modalDesc">Описание автомобиля.</p>
+                <div class="modal-specs">
+                    <div class="spec-item"><span class="spec-label">Емкость батареи:</span><span class="spec-value" id="modalBat">--</span></div>
+                    <div class="spec-item"><span class="spec-label">Запас хода:</span><span class="spec-value" id="modalRange">--</span></div>
+                    <div class="spec-item"><span class="spec-label">Мощность:</span><span class="spec-value" id="modalHp">--</span></div>
+                    <div class="spec-item"><span class="spec-label">Привод:</span><span class="spec-value" id="modalDrive">--</span></div>
+                </div>
+                <a href="#callback" class="btn-primary" style="width: 100%; text-align: center; padding: 15px 0;">Оставить заявку</a>
+            </div>
+        </div>
     </div>
 
-  </div>
+    <script>
+        /* ================================
+           ЛОГИКА МОДАЛЬНОГО ОКНА КАТАЛОГА
+           ================================ */
+        const carData = {
+            'sealion06': { title: 'BYD Sea Lion 06', img: 'sealion06.png', desc: 'Современный кроссовер нового поколения. Оснащен передовой архитектурой e-Platform 3.0 Evo с технологией интеграции батареи CTB (Cell-to-Body).', bat: '71.8 кВт⋅ч', range: '510 км', hp: '218 л.с.', drive: 'Передний' },
+            'sealion07': { title: 'BYD Sea Lion 07', img: 'sealion07.png', desc: 'Стильный электрический фастбэк-кроссовер с выдающейся аэродинамикой и премиальным интерьером. Воплощает в себе будущее электрического транспорта.', bat: '80.6 кВт⋅ч', range: '610 км', hp: '313 л.с.', drive: 'Задний' },
+            'q05': { title: 'Changan Q05', img: 'changan_q05.png', desc: 'Динамичный и технологичный городской кроссовер с выразительным футуристичным дизайном. Идеальный баланс комфорта и эффективности.', bat: '60 кВт⋅ч', range: '450 км', hp: '215 л.с.', drive: 'Передний' },
+            'a06': { title: 'Changan A06', img: 'changan_a06.png', desc: 'Спортивный лифтбек, притягивающий взгляды. Отличается агрессивным экстерьером, продвинутыми электронными ассистентами и превосходной динамикой разгона.', bat: '55 кВт⋅ч', range: '505 км', hp: '258 л.с.', drive: 'Передний' }
+        };
 
-  <script>
+        const modal = document.getElementById('carModal');
 
-    let EUR_RATE = 0;
-
-    const engineTypeInputs =
-      document.querySelectorAll('input[name="engineType"]');
-
-    const ageInputs =
-      document.querySelectorAll('input[name="age"]');
-
-    const carPriceInput =
-      document.getElementById('carPrice');
-
-    const engineVolumeInput =
-      document.getElementById('engineVolume');
-
-    const benefitCheckbox =
-      document.getElementById('benefitCheckbox');
-
-    const engineVolumeField =
-      document.getElementById('engineVolumeField');
-
-    const benefitBlock =
-      document.getElementById('benefitBlock');
-
-    const dutyValue =
-      document.getElementById('dutyValue');
-
-    const utilValue =
-      document.getElementById('utilValue');
-
-    const ndsValue =
-      document.getElementById('ndsValue');
-
-    const totalValue =
-      document.getElementById('totalValue');
-
-    const rateInfo =
-      document.getElementById('rateInfo');
-
-    // Курс НБРБ
-
-    async function loadCurrencyRate() {
-
-      try {
-
-        const response = await fetch(
-          'https://api.nbrb.by/exrates/rates/EUR?parammode=2'
-        );
-
-        const data = await response.json();
-
-        EUR_RATE = data.Cur_OfficialRate;
-
-        rateInfo.innerHTML =
-          `Курс НБРБ: 1 EUR = ${EUR_RATE.toFixed(4)} BYN`;
-
-        calculateResult();
-
-      } catch (error) {
-
-        console.log(error);
-
-        EUR_RATE = 3.35;
-
-        rateInfo.innerHTML =
-          'Курс НБРБ временно недоступен';
-
-      }
-
-    }
-
-    // Toggle
-
-    function updateForm() {
-
-      const selectedEngine =
-        document.querySelector('input[name="engineType"]:checked').value;
-
-      if (selectedEngine === 'ice') {
-
-        benefitBlock.style.display = 'block';
-
-        engineVolumeField.classList.remove('hidden');
-
-      } else {
-
-        benefitBlock.style.display = 'none';
-
-        engineVolumeField.classList.add('hidden');
-
-        engineVolumeInput.value = '';
-
-        benefitCheckbox.checked = false;
-
-      }
-
-      calculateResult();
-
-    }
-
-    // Пошлина ДВС
-
-    function calculateDuty(price, volume, age) {
-
-      let duty = 0;
-
-      if (age === 'new') {
-
-        if (price <= 8500) {
-          duty = Math.max(price * 0.54, volume * 2.5);
-        } else if (price <= 16700) {
-          duty = Math.max(price * 0.48, volume * 3.5);
-        } else if (price <= 42300) {
-          duty = Math.max(price * 0.48, volume * 5.5);
-        } else if (price <= 84500) {
-          duty = Math.max(price * 0.48, volume * 7.5);
-        } else if (price <= 169000) {
-          duty = Math.max(price * 0.48, volume * 15);
-        } else {
-          duty = Math.max(price * 0.48, volume * 20);
+        function openModal(carId) {
+            const data = carData[carId];
+            if (!data) return;
+            document.getElementById('modalTitle').textContent = data.title;
+            document.getElementById('modalImg').src = data.img;
+            document.getElementById('modalDesc').textContent = data.desc;
+            document.getElementById('modalBat').textContent = data.bat;
+            document.getElementById('modalRange').textContent = data.range;
+            document.getElementById('modalHp').textContent = data.hp;
+            document.getElementById('modalDrive').textContent = data.drive;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; 
         }
 
-      }
-
-      if (age === 'middle') {
-
-        if (volume <= 1000) {
-          duty = volume * 1.5;
-        } else if (volume <= 1500) {
-          duty = volume * 1.7;
-        } else if (volume <= 1800) {
-          duty = volume * 2.5;
-        } else if (volume <= 2300) {
-          duty = volume * 2.7;
-        } else if (volume <= 3000) {
-          duty = volume * 3;
-        } else {
-          duty = volume * 3.6;
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = ''; 
         }
 
-      }
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) closeModal();
+        });
 
-      if (age === 'old') {
+        /* ================================
+           ЛОГИКА КАЛЬКУЛЯТОРА РАСТАМОЖКИ
+           ================================ */
+        let EUR_RATE = 0;
 
-        if (volume <= 1000) {
-          duty = volume * 3;
-        } else if (volume <= 1500) {
-          duty = volume * 3.2;
-        } else if (volume <= 1800) {
-          duty = volume * 3.5;
-        } else if (volume <= 2300) {
-          duty = volume * 4.8;
-        } else if (volume <= 3000) {
-          duty = volume * 5;
-        } else {
-          duty = volume * 5.7;
+        const engineTypeInputs = document.querySelectorAll('input[name="engineType"]');
+        const ageInputs = document.querySelectorAll('input[name="age"]');
+        const carPriceInput = document.getElementById('carPrice');
+        const engineVolumeInput = document.getElementById('engineVolume');
+        const benefitCheckbox = document.getElementById('benefitCheckbox');
+        const engineVolumeField = document.getElementById('engineVolumeField');
+        const benefitBlock = document.getElementById('benefitBlock');
+        const dutyValue = document.getElementById('dutyValue');
+        const utilValue = document.getElementById('utilValue');
+        const ndsValue = document.getElementById('ndsValue');
+        const totalValue = document.getElementById('totalValue');
+        const rateInfo = document.getElementById('rateInfo');
+
+        // Получение курса НБРБ
+        async function loadCurrencyRate() {
+            try {
+                const response = await fetch('https://api.nbrb.by/exrates/rates/EUR?parammode=2');
+                const data = await response.json();
+                EUR_RATE = data.Cur_OfficialRate;
+                rateInfo.innerHTML = `Курс НБРБ: 1 EUR = ${EUR_RATE.toFixed(4)} BYN`;
+                calculateResult();
+            } catch (error) {
+                console.log(error);
+                EUR_RATE = 3.35; // Резервный курс
+                rateInfo.innerHTML = 'Курс НБРБ временно недоступен (используется резервный)';
+            }
         }
 
-      }
-
-      return duty;
-
-    }
-
-    // Главный расчет
-
-    function calculateResult() {
-
-      const selectedEngine =
-        document.querySelector('input[name="engineType"]:checked').value;
-
-      const selectedAge =
-        document.querySelector('input[name="age"]:checked').value;
-
-      const carPrice =
-        Number(carPriceInput.value) || 0;
-
-      const engineVolume =
-        Number(engineVolumeInput.value) || 0;
-
-      const hasBenefit =
-        benefitCheckbox.checked;
-
-      // Утиль
-
-      let utilFee = 625;
-
-      if (
-        selectedAge === 'middle'
-        || selectedAge === 'old'
-      ) {
-
-        utilFee = 1282;
-
-      }
-
-      utilValue.textContent =
-        `${utilFee.toLocaleString('ru-RU')} BYN`;
-
-      // Пошлина
-
-      let duty = 0;
-
-      // ДВС
-
-      if (selectedEngine === 'ice') {
-
-        duty = calculateDuty(
-          carPrice,
-          engineVolume,
-          selectedAge
-        );
-
-        if (hasBenefit) {
-
-          duty = duty / 2;
-
+        // Обновление видимости полей
+        function updateForm() {
+            const selectedEngine = document.querySelector('input[name="engineType"]:checked').value;
+            if (selectedEngine === 'ice') {
+                benefitBlock.style.display = 'block';
+                engineVolumeField.classList.remove('hidden');
+            } else {
+                benefitBlock.style.display = 'none';
+                engineVolumeField.classList.add('hidden');
+                engineVolumeInput.value = '';
+                benefitCheckbox.checked = false;
+            }
+            calculateResult();
         }
 
-      }
+        // Расчет пошлины ДВС
+        function calculateDuty(price, volume, age) {
+            let duty = 0;
+            if (age === 'new') {
+                if (price <= 8500) duty = Math.max(price * 0.54, volume * 2.5);
+                else if (price <= 16700) duty = Math.max(price * 0.48, volume * 3.5);
+                else if (price <= 42300) duty = Math.max(price * 0.48, volume * 5.5);
+                else if (price <= 84500) duty = Math.max(price * 0.48, volume * 7.5);
+                else if (price <= 169000) duty = Math.max(price * 0.48, volume * 15);
+                else duty = Math.max(price * 0.48, volume * 20);
+            }
+            if (age === 'middle') {
+                if (volume <= 1000) duty = volume * 1.5;
+                else if (volume <= 1500) duty = volume * 1.7;
+                else if (volume <= 1800) duty = volume * 2.5;
+                else if (volume <= 2300) duty = volume * 2.7;
+                else if (volume <= 3000) duty = volume * 3;
+                else duty = volume * 3.6;
+            }
+            if (age === 'old') {
+                if (volume <= 1000) duty = volume * 3;
+                else if (volume <= 1500) duty = volume * 3.2;
+                else if (volume <= 1800) duty = volume * 3.5;
+                else if (volume <= 2300) duty = volume * 4.8;
+                else if (volume <= 3000) duty = volume * 5;
+                else duty = volume * 5.7;
+            }
+            return duty;
+        }
 
-      // Последовательный гибрид
+        // Главная функция расчета
+        function calculateResult() {
+            const selectedEngine = document.querySelector('input[name="engineType"]:checked').value;
+            const selectedAge = document.querySelector('input[name="age"]:checked').value;
+            const carPrice = Number(carPriceInput.value) || 0;
+            const engineVolume = Number(engineVolumeInput.value) || 0;
+            const hasBenefit = benefitCheckbox.checked;
 
-      if (selectedEngine === 'hybrid') {
+            // Утильсбор
+            let utilFee = 625;
+            if (selectedAge === 'middle' || selectedAge === 'old') {
+                utilFee = 1282;
+            }
+            utilValue.textContent = `${utilFee.toLocaleString('ru-RU')} BYN`;
 
-        duty = carPrice * 0.15;
+            // Пошлина
+            let duty = 0;
+            if (selectedEngine === 'ice') {
+                duty = calculateDuty(carPrice, engineVolume, selectedAge);
+                if (hasBenefit) duty = duty / 2;
+            }
+            if (selectedEngine === 'hybrid') {
+                duty = carPrice * 0.15;
+            }
+            dutyValue.textContent = `${Math.round(duty).toLocaleString('ru-RU')} €`;
 
-      }
+            // НДС
+            let nds = 0;
+            if (selectedEngine === 'hybrid') {
+                nds = (carPrice + duty) * 0.20;
+            }
+            ndsValue.textContent = `${Math.round(nds).toLocaleString('ru-RU')} €`;
 
-      dutyValue.textContent =
-        `${Math.round(duty).toLocaleString('ru-RU')} €`;
+            // Итого в BYN
+            const euroTotal = duty + nds;
+            const bynTotal = (euroTotal * EUR_RATE) + utilFee + 120 + 700;
+            
+            totalValue.innerHTML = `${Math.round(bynTotal).toLocaleString('ru-RU')} BYN`;
+        }
 
-      // НДС
+        // Слушатели событий
+        engineTypeInputs.forEach(input => input.addEventListener('change', updateForm));
+        ageInputs.forEach(input => input.addEventListener('change', calculateResult));
+        benefitCheckbox.addEventListener('change', calculateResult);
+        carPriceInput.addEventListener('input', calculateResult);
+        engineVolumeInput.addEventListener('input', calculateResult);
 
-      let nds = 0;
+        // Инициализация
+        updateForm();
+        loadCurrencyRate();
 
-      if (selectedEngine === 'hybrid') {
-
-        nds = (carPrice + duty) * 0.20;
-
-      }
-
-      ndsValue.textContent =
-        `${Math.round(nds).toLocaleString('ru-RU')} €`;
-
-      // Итого
-
-      const euroTotal =
-        duty + nds;
-
-      const bynTotal =
-        (euroTotal * EUR_RATE)
-        + utilFee
-        + 120
-        + 700;
-
-      totalValue.innerHTML = `
-        ${Math.round(bynTotal).toLocaleString('ru-RU')} BYN
-      `;
-
-    }
-
-    // Events
-
-    engineTypeInputs.forEach(input => {
-
-      input.addEventListener('change', updateForm);
-
-    });
-
-    ageInputs.forEach(input => {
-
-      input.addEventListener('change', calculateResult);
-
-    });
-
-    benefitCheckbox.addEventListener('change', calculateResult);
-
-    carPriceInput.addEventListener('input', calculateResult);
-
-    engineVolumeInput.addEventListener('input', calculateResult);
-
-    updateForm();
-
-    loadCurrencyRate();
-
-  </script>
-
+    </script>
 </body>
 </html>
-
