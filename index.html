@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SRJ MOTORS - Авто из Китая</title>
     
-    <!-- Подключение шрифта Montserrat -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <!-- Подключение иконок FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -113,7 +111,6 @@
             transition: transform 0.3s ease;
         }
         
-        /* Кнопка быстрой связи, которая появится только на мобилках в навбаре */
         .mobile-quick-phone { display: none; color: var(--neon-green); font-size: 24px; text-decoration: none; }
 
         /* --- МОБИЛЬНОЕ МЕНЮ (SIDE DRAWER) --- */
@@ -148,7 +145,6 @@
         .mobile-nav-links a:last-child { border-bottom: none; }
         .mobile-nav-links a:hover { color: var(--neon-green); }
         
-        /* Доп. инфо внутри мобильного меню */
         .mobile-menu-footer { margin-top: auto; display: flex; flex-direction: column; gap: 15px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 25px; }
         .mm-info-item { font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 10px; font-weight: 500; }
         .mm-info-item i { color: var(--neon-green); }
@@ -182,7 +178,7 @@
             transform: translateY(-3px) scale(1.05); box-shadow: 0 10px 30px rgba(191, 255, 0, 0.8), inset 0 0 15px rgba(255,255,255,0.6); background-color: #ccff33;
         }
 
-        /* --- СЛАЙДЕРЫ (КАТАЛОГ, КОМАНДА, ОТЗЫВЫ) --- */
+        /* --- СЛАЙДЕРЫ --- */
         .catalog-section, .team-section, .reviews-section { padding: 80px 0 60px; background-color: var(--bg-dark); width: 100%; }
         .reviews-section { background-image: radial-gradient(circle at 50% 0%, #1a2210 0%, #070707 60%); }
         .section-title {
@@ -262,9 +258,7 @@
 
         /* --- СЕКЦИЯ КАЛЬКУЛЯТОРА --- */
         .calculator-section { padding: 60px 20px; background-color: var(--bg-dark); }
-        .calc-wrapper {
-            max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 420px; gap: 30px; align-items: start;
-        }
+        .calc-wrapper { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 420px; gap: 30px; align-items: start; }
         .calculator-form, .result-card {
             background: rgba(16, 16, 16, 0.85); border: 1px solid rgba(191, 255, 0, 0.15);
             border-radius: 30px; backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
@@ -316,12 +310,6 @@
         .res-item:hover { border-color: rgba(191, 255, 0, 0.2); }
         .res-name { color: var(--text-muted); font-size: 13px; font-weight: 600; text-transform: uppercase; }
         .res-value { font-size: 16px; font-weight: 800; text-align: right; color: var(--text-light); }
-        
-        /* Мобильный блок быстрого результата (будет вылезать только на смартфонах над калькулятором) */
-        .mobile-quick-result { display: none; background: linear-gradient(135deg, rgba(191,255,0,0.15) 0%, rgba(16,16,16,0.9) 100%); border: 1px solid var(--neon-green); padding: 20px; border-radius: 20px; margin-bottom: 25px; text-align: center; box-shadow: 0 0 20px rgba(191,255,0,0.1); }
-        .mqr-label { font-size: 12px; text-transform: uppercase; color: #fff; letter-spacing: 1px; margin-bottom: 5px; font-weight: 600;}
-        .mqr-value { font-size: 28px; font-weight: 900; color: var(--neon-green); text-shadow: 0 0 15px rgba(191,255,0,0.3); }
-
         .res-total { margin-top: 25px; }
         .res-total .res-item { background: linear-gradient(135deg, rgba(191,255,0,0.1) 0%, rgba(10,10,10,1) 100%); border-color: var(--neon-green); box-shadow: 0 0 20px rgba(191, 255, 0, 0.1); }
         .res-total .res-name { color: var(--text-light); }
@@ -374,7 +362,7 @@
         .office-address { color: var(--text-muted); font-size: 13px; font-weight: 500; line-height: 1.5; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .office-address i { color: var(--neon-green); }
 
-        /* --- СЕКЦИЯ КОНТАКТЫ --- */
+        /* --- СЕКЦИЯ КОНТАКТЫ (Оставлено для ПК, перестроим на мобилках) --- */
         .contacts-section { padding: 80px 20px 100px; background-color: var(--bg-dark); }
         .contacts-wrapper {
             max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
@@ -438,6 +426,7 @@
         .footer-nav a:hover { color: var(--text-light); transform: translateX(5px); }
         .footer-nav a:hover::before { opacity: 1; transform: translateX(0); }
         .footer-contacts { display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
+        
         .fc-item { display: flex; align-items: flex-start; gap: 15px; color: var(--text-muted); font-size: 14px; line-height: 1.5; }
         .fc-item i { color: var(--neon-green); font-size: 16px; margin-top: 3px; width: 20px; text-align: center; }
         .fc-item a { color: var(--text-light); text-decoration: none; font-weight: 700; transition: color 0.3s ease; }
@@ -540,17 +529,9 @@
             .reviews-slider { gap: 15px; }
             .review-card { flex: 0 0 calc(50% - 7.5px); min-width: auto; border-radius: 15px; }
 
-            /* Калькулятор: выводим Итоговый результат в самый верх над формой */
-            .calc-wrapper { display: flex; flex-direction: column; gap: 0; }
-            .calculator-form { order: 2; padding: 20px; border-radius: 20px; border-top-left-radius: 0; border-top-right-radius: 0; border-top: none; }
-            .result-card { order: 3; display: none; } /* Скрываем громоздкую десктопную карточку результатов */
-            .mobile-quick-result { display: block; order: 1; margin-bottom: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
-            
-            .calc-input { height: 50px; font-size: 15px; padding: 0 15px; border-radius: 10px; }
-            .calc-currency { right: 15px; font-size: 16px; }
-            .calc-select-grid { grid-template-columns: 1fr; gap: 8px; }
-            .calc-option label { min-height: 50px; border-radius: 10px; font-size: 12px; padding: 5px; }
-            .calc-label { font-size: 12px; margin-bottom: 8px; }
+            /* Калькулятор откатываем к стандартному адаптивному виду ПК-версии */
+            .calc-wrapper { grid-template-columns: 1fr; gap: 30px; }
+            .result-card { position: relative; top: 0; }
 
             /* Блоки условий работы */
             .conditions-section { padding: 40px 0; }
@@ -570,25 +551,10 @@
             .about-grid { grid-template-columns: 1fr; gap: 20px; padding: 0 20px; }
             .office-card { border-radius: 15px; }
 
-            /* Контакты и подвал */
+            /* Контакты */
             .contacts-section { padding: 40px 0; }
             .contacts-wrapper { grid-template-columns: 1fr; padding: 20px; border-radius: 20px; margin: 0 20px; gap: 25px; }
             .contacts-map { min-height: 250px; height: 250px; border-radius: 15px; }
-            
-            .main-footer { padding-top: 40px; margin-top: 40px; }
-            .footer-container { grid-template-columns: 1fr; gap: 35px; text-align: center; padding: 0 20px 40px; }
-            .footer-brand { grid-column: span 1; }
-            .footer-desc { margin: 0 auto 20px; font-size: 13px; }
-            .footer-unp { padding: 12px; border-radius: 10px; width: 100%; max-width: 320px; font-size: 12px; }
-            .footer-title { margin-bottom: 15px; font-size: 15px; }
-            .footer-nav { align-items: center; gap: 12px; }
-            .footer-nav a { font-size: 13px; }
-            .footer-nav a::before { display: none; }
-            .fc-item { flex-direction: column; align-items: center; gap: 6px; font-size: 13px; }
-            .fc-item i { margin-top: 0; }
-            .footer-socials { justify-content: center; }
-            .footer-bottom { padding: 20px; }
-            .footer-bottom-container { flex-direction: column; text-align: center; gap: 12px; }
             
             /* Попапы форм */
             .modal-content { padding: 30px 20px; border-radius: 25px; }
@@ -597,11 +563,56 @@
             .modal-title { font-size: 1.5rem; text-transform: uppercase; }
             .modal-desc { font-size: 12px; margin-bottom: 15px; }
         }
+
+        /* --- ДОПОЛНИТЕЛЬНАЯ ОПТИМИЗАЦИЯ ФУТЕРА ДЛЯ МОБИЛОК (<900px) --- */
+        @media (max-width: 900px) {
+            .main-footer { padding-top: 40px; margin-top: 40px; }
+            .footer-container { grid-template-columns: 1fr; gap: 35px; text-align: center; padding: 0 20px 40px; }
+            .footer-brand { grid-column: span 1; }
+            .footer-desc { margin: 0 auto 20px; font-size: 13px; }
+            .footer-unp { padding: 12px; border-radius: 10px; width: 100%; max-width: 320px; font-size: 12px; }
+            
+            /* Навигация в футере (в 2 колонки на мобилках) */
+            .footer-title { margin-bottom: 15px; font-size: 15px; }
+            .footer-nav { 
+                display: grid; 
+                grid-template-columns: 1fr 1fr; 
+                gap: 15px 10px; 
+                text-align: left; 
+                margin: 0 auto; 
+                max-width: 320px; 
+            }
+            .footer-nav a { font-size: 13px; justify-content: flex-start; }
+            .footer-nav a::before { display: none; }
+            
+            /* Контакты в футере (стильные виджеты-плашки) */
+            .footer-contacts {
+                gap: 10px; max-width: 350px; margin: 0 auto 25px;
+            }
+            .fc-item {
+                flex-direction: row; align-items: center; background: rgba(255,255,255,0.03);
+                border: 1px solid rgba(255,255,255,0.05); padding: 15px 20px; border-radius: 16px;
+                text-align: left; gap: 15px;
+            }
+            .fc-item i { margin-top: 0; font-size: 20px; width: 25px; }
+            .fc-item span, .fc-item a { font-size: 13px; font-weight: 600; line-height: 1.4; }
+
+            .footer-socials { justify-content: center; }
+            
+            /* Нижняя часть футера (в одну строчку, где возможно, или плотно) */
+            .footer-bottom { padding: 20px 15px; }
+            .footer-bottom-container { flex-direction: column; gap: 10px; }
+            .footer-bottom-links { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; }
+            .footer-bottom-links span.dot { color: #555; }
+        }
+
+        @media (max-width: 400px) {
+            .mobile-menu { width: 100%; right: -100%; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- ВЕРХНЕЕ ПОДМЕНЮ (СТАТИКА ДЛЯ ПК) -->
     <div class="top-bar">
         <div class="top-info">
             <span><i class="far fa-clock"></i> ПН - ВС 9-18, БЕЗ ВЫХОДНЫХ</span>
@@ -620,9 +631,7 @@
         </div>
     </div>
 
-    <!-- ГЛАВНОЕ МЕНЮ -->
     <nav class="main-nav">
-        <!-- Кнопка Гамбургера (Появится на мобилках слева) -->
         <div class="hamburger" onclick="toggleMenu()">
             <i class="fas fa-bars"></i>
         </div>
@@ -638,7 +647,6 @@
             <a href="#"><img src="srjlo-2.png" alt="SRJ Motors Logo"></a>
         </div>
         
-        <!-- Кнопка быстрого звонка (Появится на мобилках по центру/справа перед гамбургером) -->
         <a href="tel:+375336726666" class="mobile-quick-phone" aria-label="Позвонить нам">
             <i class="fas fa-phone-alt"></i>
         </a>
@@ -651,7 +659,6 @@
         </div>
     </nav>
 
-    <!-- МОБИЛЬНОЕ МЕНЮ (SIDE DRAWER) -->
     <div class="mobile-menu-overlay" id="mobileOverlay" onclick="toggleMenu()"></div>
     <div class="mobile-menu" id="mobileMenu">
         <div class="mobile-menu-header">
@@ -672,7 +679,6 @@
             <a href="#reviews" onclick="toggleMenu()">Отзывы</a>
             <a href="#contacts" onclick="toggleMenu()">Контакты</a>
         </div>
-        <!-- Информационный блок внутри мобильного меню -->
         <div class="mobile-menu-footer">
             <div class="mm-info-item"><i class="fas fa-phone-alt"></i><a href="tel:+375336726666">+375 33 672-66-66</a></div>
             <div class="mm-info-item"><i class="far fa-clock"></i><span>ПН - ВС 9:00 - 18:00</span></div>
@@ -680,7 +686,6 @@
         </div>
     </div>
 
-    <!-- ГЛАВНЫЙ ЭКРАН -->
     <section class="hero">
         <div class="hero-content">
             <h1><span>Китайские авто</span><br>в наличии и под заказ</h1>
@@ -688,7 +693,6 @@
         </div>
     </section>
 
-    <!-- СЕКЦИЯ КАТАЛОГА -->
     <section class="catalog-section" id="catalog">
         <h2 class="section-title">Заказывают чаще всего</h2>
         
@@ -791,21 +795,13 @@
         </div>
     </section>
 
-    <!-- СЕКЦИЯ КАЛЬКУЛЯТОРА РАСТАМОЖКИ -->
     <section class="calculator-section" id="calculator">
         <h2 class="section-title">Калькулятор растаможки</h2>
         <p class="calc-subtitle">Точный расчет таможенных платежей с учетом актуального курса НБРБ</p>
         
         <div class="calc-wrapper">
             
-            <!-- Умный блок быстрого результата для смартфонов -->
-            <div class="mobile-quick-result">
-                <div class="mqr-label">Итоговая стоимость растаможки:</div>
-                <div class="mqr-value" id="mobileTotalValue">0 BYN</div>
-            </div>
-
             <div class="calculator-form">
-                
                 <div class="calc-field">
                     <label class="calc-label">Стоимость авто</label>
                     <div class="calc-input-wrap">
@@ -864,10 +860,8 @@
                         <input type="number" id="engineVolume" class="calc-input" placeholder="Например: 2000">
                     </div>
                 </div>
-
             </div>
 
-            <!-- Громоздкий детальный результат (Остается для ПК) -->
             <div class="result-card">
                 <h2 class="res-title">Результат</h2>
                 
@@ -908,7 +902,6 @@
         </div>
     </section>
 
-    <!-- СЕКЦИЯ УСЛОВИЯ РАБОТЫ -->
     <section class="conditions-section" id="conditions">
         <h2 class="section-title">Условия работы</h2>
         
@@ -947,7 +940,6 @@
         </div>
     </section>
 
-    <!-- СЕКЦИЯ О НАС -->
     <section class="about-section" id="about">
         <h2 class="section-title">Наши Представительства</h2>
         
@@ -1001,7 +993,6 @@
         </div>
     </section>
 
-    <!-- СЕКЦИЯ НАША КОМАНДА -->
     <section class="team-section" id="team">
         <h2 class="section-title">Наша команда</h2>
         
@@ -1038,7 +1029,6 @@
         </div>
     </section>
 
-    <!-- СЕКЦИЯ ОТЗЫВЫ КЛИЕНТОВ -->
     <section class="reviews-section" id="reviews">
         <h2 class="section-title">Отзывы наших клиентов</h2>
         
@@ -1078,10 +1068,7 @@
         </div>
     </section>
 
-    <!-- СЕКЦИЯ КОНТАКТЫ -->
     <section class="contacts-section" id="contacts">
-        <h2 class="section-title">Свяжитесь с нами</h2>
-        
         <div class="contacts-wrapper">
             <div class="contacts-info">
                 <div class="contacts-list">
@@ -1124,7 +1111,6 @@
         </div>
     </section>
 
-    <!-- НАЧАЛО ФУТЕРА -->
     <footer class="main-footer">
         <div class="footer-container">
             
@@ -1179,13 +1165,14 @@
         <div class="footer-bottom">
             <div class="footer-bottom-container">
                 <div class="footer-copy">© 2026 ООО "СРДЖ Мотор". Все права защищены.</div>
-                <a href="#privacy" class="footer-policy">Политика конфиденциальности</a>
-                <div class="footer-dev">Разработка сайта: <a href="https://t.me/alievai" target="_blank">@alievai</a></div>
+                <div class="footer-bottom-links">
+                    <a href="#privacy" class="footer-policy">Политика конфиденциальности</a>
+                    <span class="dot">•</span>
+                    <div class="footer-dev">Разработка: <a href="https://t.me/alievai" target="_blank">@alievai</a></div>
+                </div>
             </div>
         </div>
     </footer>
-
-    <!-- МОДАЛЬНОЕ ОКНО ДЛЯ АВТО -->
     <div class="modal-overlay" id="carModal">
         <div class="modal-content">
             <span class="modal-close" onclick="closeModal()">&times;</span>
@@ -1204,7 +1191,6 @@
         </div>
     </div>
 
-    <!-- МОДАЛЬНОЕ ОКНО ДЛЯ ЗАКАЗА ЗВОНКА (ПОПАП) -->
     <div class="modal-overlay" id="callbackModal">
         <div class="modal-content" style="max-width: 450px; flex-direction: column; align-items: center; padding: 40px 30px;">
             <span class="modal-close" onclick="closeCallbackModal()">&times;</span>
@@ -1219,7 +1205,6 @@
         </div>
     </div>
 
-    <!-- УНИВЕРСАЛЬНОЕ МОДАЛЬНОЕ ОКНО ДЛЯ ВИДЕО -->
     <div class="modal-overlay" id="videoModal">
         <div class="modal-content video-modal-content">
             <span class="modal-close" onclick="closeVideoModal()">&times;</span>
@@ -1228,7 +1213,6 @@
         </div>
     </div>
 
-    <!-- СКРИПТЫ САЙТА -->
     <script>
         /* ================================
            УПРАВЛЕНИЕ ЗАКАЗОМ ЗВОНКА
@@ -1274,7 +1258,7 @@
             'sealion06': { title: 'BYD Sea Lion 06', img: 'sealion06.png', desc: 'Современный кроссовер нового поколения. Оснащен передовой архитектурой e-Platform 3.0 Evo с технологией интеграции батареи CTB (Cell-to-Body).', bat: '71.8 кВт⋅ч', range: '510 км', hp: '218 л.с.', drive: 'Передний' },
             'sealion07': { title: 'BYD Sea Lion 07', img: 'sealion07.png', desc: 'Стильный электрический фастбэк-кроссовер с выдающейся аэродинамикой и премиальным интерьером. Воплощает в себе будущее электрического транспорта.', bat: '80.6 кВт⋅ч', range: '610 км', hp: '313 л.с.', drive: 'Задний' },
             'q05': { title: 'Changan Q05', img: 'changan_q05.png', desc: 'Динамичный и технологичный городской кроссовер с выразительным футуристичным дизайном. Идеальный баланс комфорта и эффективности.', bat: '60 кВт⋅ч', range: '450 км', hp: '215 л.с.', drive: 'Передний' },
-            'a06': { title: 'Changan A06', img: 'changan_a06.png', desc: 'Спортивный лифтбек, притягивающий взгляды. Отличается агрессивным экстерьером, продвинутыми электронными ассистентами и преводходной динамикой разгона.', bat: '55 кВт⋅ч', range: '505 км', hp: '258 л.с.', drive: 'Передний' },
+            'a06': { title: 'Changan A06', img: 'changan_a06.png', desc: 'Спортивный лифтбек, притягивающий взгляды. Отличается агрессивным экстерьером, продвинутыми электронными ассистентами и превосходной динамикой разгона.', bat: '55 кВт⋅ч', range: '505 км', hp: '258 л.с.', drive: 'Передний' },
             'zeekr001': { title: 'Zeekr 001', img: 'zeekr001.png', desc: 'Флагманский электромобиль с ураганной динамикой, адаптивной пневмоподвеской и запасом хода, позволяющим забыть о частых зарядках. Настоящий премиум-класс.', bat: '100 кВт⋅ч', range: '705 км', hp: '544 л.с.', drive: 'Полный' },
             'l7': { title: 'Li Auto L7', img: 'l7.png', desc: 'Роскошный семейный кроссовер. Последовательный гибрид с огромным запасом хода, царским комфортом для задних пассажиров и десятками интеллектуальных опций.', bat: '42.8 кВт⋅ч', range: '1315 км', hp: '449 л.с.', drive: 'Полный' },
             'zeekrx': { title: 'Zeekr X', img: 'zeekrx.png', desc: 'Компактный и дерзкий городской кроссовер. Объединяет в себе передовые технологии материнской платформы SEA, яркий дизайн и впечатляющую маневренность.', bat: '66 кВт⋅ч', range: '560 км', hp: '272 л.с.', drive: 'Задний' },
@@ -1322,7 +1306,6 @@
         const utilValue = document.getElementById('utilValue');
         const ndsValue = document.getElementById('ndsValue');
         const totalValue = document.getElementById('totalValue');
-        const mobileTotalValue = document.getElementById('mobileTotalValue');
         const rateInfo = document.getElementById('rateInfo');
 
         async function loadCurrencyRate() {
@@ -1414,10 +1397,7 @@
             const euroTotal = duty + nds;
             const bynTotal = (euroTotal * EUR_RATE) + utilFee + 120 + 700;
             
-            // Дублируем вывод красивого значения в оба блока (десктоп и мобильный)
-            const finalFormattedByn = `${Math.round(bynTotal).toLocaleString('ru-RU')} BYN`;
-            totalValue.innerHTML = finalFormattedByn;
-            mobileTotalValue.innerHTML = finalFormattedByn;
+            totalValue.innerHTML = `${Math.round(bynTotal).toLocaleString('ru-RU')} BYN`;
         }
 
         engineTypeInputs.forEach(input => input.addEventListener('change', updateForm));
